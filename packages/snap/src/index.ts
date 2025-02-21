@@ -33,7 +33,7 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
     if (!domain) {
       return null;
     }
-    
+
     const identityAddress = await sdk.getIdentityAddress(
       domain || 'supernova',
       chainId
@@ -59,13 +59,11 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
 
 
 export const onTransaction: OnTransactionHandler = async ({ transaction, chainId }) => {
-  console.log('onTransaction', transaction, chainId);
-  alert('onTransaction');
   if (transaction.to) {
     try {
       const identityName = await sdk.getIdentityName(
         transaction.to,
-        formatCAIP2(NAMESPACES.EVM, chainId)
+        chainId
       );
       const displayName = identityName.name ?? 'n/a';
 
