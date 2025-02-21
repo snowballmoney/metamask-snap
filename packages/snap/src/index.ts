@@ -7,19 +7,17 @@ import type {
 import { panel, heading, text, row, address } from '@metamask/snaps-sdk';
 
 const sdk = new SnowstormSDK({
-  baseUrl: 'https://api.modular.name/public/api',
+  baseUrl: 'https://api.modular.name/api/public/',
 });
 
 export const onNameLookup: OnNameLookupHandler = async (request) => {
   const { address: addressRequest, domain, chainId } = request;
 
-  alert('onTransaction');
-  console.log('onNameLookup', request);
   try {
     if (addressRequest) {
       const identityName = await sdk.getIdentityName(
         addressRequest,
-        formatCAIP2(NAMESPACES.EVM, chainId)
+        chainId
       );
       if (!identityName) {
         return null;
@@ -35,10 +33,10 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
     if (!domain) {
       return null;
     }
-
+    
     const identityAddress = await sdk.getIdentityAddress(
-      domain,
-      formatCAIP2(NAMESPACES.EVM, chainId)
+      domain || 'supernova',
+      chainId
     );
     if (identityAddress) {
       return {
@@ -46,18 +44,19 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
           {
             resolvedAddress: identityAddress.resolverAddress,
             domainName: domain,
-            protocol: 'Snowstorm',
+            protocol: 'Snowstorm '+ identityAddress.resolverAddress,
           },
         ],
       };
     }
 
     return null;
-  } catch (error) {
+  } catch (error: any) {
     console.error('Snowstorm resolution error:', error);
     return null;
   }
 };
+
 
 export const onTransaction: OnTransactionHandler = async ({ transaction, chainId }) => {
   console.log('onTransaction', transaction, chainId);
