@@ -44,7 +44,7 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
           {
             resolvedAddress: identityAddress.resolverAddress,
             domainName: domain,
-            protocol: 'Snowstorm '+ identityAddress.resolverAddress,
+            protocol: 'Modular Naming Service',
           },
         ],
       };
