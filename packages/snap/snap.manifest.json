@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MetaMask Snap for Snowstorm name resolution - resolve addresses to .snow names and vice versa",
   "proposedName": "Snowstorm Name Resolution",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/snowballmoney/metamask-snap.git"
   },
   "source": {
-    "shasum": "+iMhGcltWC4OaAg8PuTs0jc8o5SSLi7jeT22tD++WcA=",
+    "shasum": "JSHCc9jMEpDU7dqvI0lnrg/4VtuZWRAJPawTkZBry/k=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -22,6 +22,6 @@
     "endowment:network-access": {},
     "endowment:transaction-insight": {}
   },
-  "platformVersion": "6.14.0",
+  "platformVersion": "6.18.0",
   "manifestVersion": "0.1"
 }

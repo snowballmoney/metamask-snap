@@ -1,6 +1,6 @@
 {
   "name": "@snowballmoney/metamask-snap",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "MetaMask Snap for Snowstorm name resolution - resolve addresses",
   "repository": {
     "type": "git",
