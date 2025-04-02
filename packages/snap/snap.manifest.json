@@ -1,5 +1,5 @@
 {
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Modular Naming Service Snap is a fantastic addition to the MetaMask wallet, making it super easy to connect with MNS identities. With this feature, you can effortlessly send and receive assets using just an MNS identity name, streamlining your transactions!",
   "proposedName": "Modular Naming Service",
   "repository": {
@@ -7,7 +7,7 @@
     "url": "https://github.com/snowballmoney/metamask-snap.git"
   },
   "source": {
-    "shasum": "x3pZ+vK01ng1UF1WE56dmGAu9BAR+ORYxRogt82wTiQ=",
+    "shasum": "gbEr+/pNNdBYLoycz6nIWFytNjAPLok9IEl6MS3i+w8=",
     "location": {
       "npm": {
         "filePath": "dist/bundle.js",
@@ -22,6 +22,6 @@
     "endowment:network-access": {},
     "endowment:transaction-insight": {}
   },
-  "platformVersion": "6.18.0",
+  "platformVersion": "6.16.0",
   "manifestVersion": "0.1"
 }
