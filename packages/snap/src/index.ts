@@ -33,9 +33,9 @@ export const onNameLookup: OnNameLookupHandler = async (request) => {
     if (!domain) {
       return null;
     }
-
+    const domainWithoutAt = domain.startsWith('@') ? domain.slice(1) : domain;
     const identityAddress = await sdk.getIdentityAddress(
-      domain || 'supernova',
+      domainWithoutAt,
       chainId
     );
     if (identityAddress) {
