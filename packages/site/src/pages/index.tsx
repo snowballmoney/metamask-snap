@@ -4,13 +4,11 @@ import {
   ConnectButton,
   InstallFlaskButton,
   ReconnectButton,
-  SendHelloButton,
   Card,
 } from '../components';
 import { defaultSnapOrigin } from '../config';
 import {
   useMetaMask,
-  useInvokeSnap,
   useMetaMaskContext,
   useRequestSnap,
 } from '../hooks';
@@ -82,6 +80,40 @@ const Notice = styled.div`
   }
 `;
 
+const UsageHint = styled.div`
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: ${({ theme }) => theme.radii.default};
+  padding: 2.4rem;
+  margin-top: 2.4rem;
+  max-width: 60rem;
+  width: 100%;
+  color: white;
+
+  h3 {
+    margin: 0 0 1rem 0;
+    font-size: 1.4rem;
+  }
+
+  p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    opacity: 0.95;
+  }
+
+  code {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    font-family: monospace;
+    font-weight: bold;
+  }
+
+  ${({ theme }) => theme.mediaQueries.small} {
+    margin-top: 1.2rem;
+    padding: 1.6rem;
+  }
+`;
+
 const ErrorMessage = styled.div`
   background-color: ${({ theme }) => theme.colors.error?.muted};
   border: 1px solid ${({ theme }) => theme.colors.error?.default};
@@ -104,23 +136,18 @@ const Index = () => {
   const { error } = useMetaMaskContext();
   const { isFlask, snapsDetected, installedSnap } = useMetaMask();
   const requestSnap = useRequestSnap();
-  const invokeSnap = useInvokeSnap();
 
   const isMetaMaskReady = isLocalSnap(defaultSnapOrigin)
     ? isFlask
     : snapsDetected;
 
-  const handleSendHelloClick = async () => {
-    await invokeSnap({ method: 'hello' });
-  };
-
   return (
     <Container>
       <Heading>
-        Welcome to <Span>template-snap</Span>
+        <Span>Modular Naming Service</Span>
       </Heading>
       <Subtitle>
-        Get started by editing <code>src/index.tsx</code>
+        Send crypto to human-readable names instead of long addresses
       </Subtitle>
       <CardContainer>
         {error && (
@@ -131,9 +158,9 @@ const Index = () => {
         {!isMetaMaskReady && (
           <Card
             content={{
-              title: 'Install',
+              title: 'Install MetaMask',
               description:
-                'Snaps is pre-release software only available in MetaMask Flask, a canary distribution for developers with access to upcoming features.',
+                'To use MNS name resolution, you need MetaMask with Snaps support. Install MetaMask to get started.',
               button: <InstallFlaskButton />,
             }}
             fullWidth
@@ -142,9 +169,9 @@ const Index = () => {
         {!installedSnap && (
           <Card
             content={{
-              title: 'Connect',
+              title: 'Install MNS Snap',
               description:
-                'Get started by connecting to and installing the example snap.',
+                'Connect and install the Modular Naming Service snap to enable name resolution in MetaMask.',
               button: (
                 <ConnectButton
                   onClick={requestSnap}
@@ -158,9 +185,9 @@ const Index = () => {
         {shouldDisplayReconnectButton(installedSnap) && (
           <Card
             content={{
-              title: 'Reconnect',
+              title: 'Update Snap',
               description:
-                'While connected to a local running snap this button will always be displayed in order to update the snap if a change is made.',
+                'Update the MNS snap to get the latest features and improvements.',
               button: (
                 <ReconnectButton
                   onClick={requestSnap}
@@ -171,31 +198,20 @@ const Index = () => {
             disabled={!installedSnap}
           />
         )}
-        <Card
-          content={{
-            title: 'Send Hello message',
-            description:
-              'Display a custom message within a confirmation screen in MetaMask.',
-            button: (
-              <SendHelloButton
-                onClick={handleSendHelloClick}
-                disabled={!installedSnap}
-              />
-            ),
-          }}
-          disabled={!installedSnap}
-          fullWidth={
-            isMetaMaskReady &&
-            Boolean(installedSnap) &&
-            !shouldDisplayReconnectButton(installedSnap)
-          }
-        />
+        {installedSnap && (
+          <UsageHint>
+            <h3>✨ How to Use MNS in MetaMask</h3>
+            <p>When sending crypto, type a name with any suffix after a dot:</p>
+            <p style={{ fontSize: '1.2rem', margin: '1rem 0' }}>
+              <code>username.mns</code> or <code>username.x</code>
+            </p>
+            <p>The part after the dot is ignored - we just look up the name!</p>
+          </UsageHint>
+        )}
         <Notice>
           <p>
-            Please note that the <b>snap.manifest.json</b> and{' '}
-            <b>package.json</b> must be located in the server root directory and
-            the bundle must be hosted at the location specified by the location
-            field.
+            <b>Tip:</b> After installing the snap, go to MetaMask and try sending 
+            to an MNS identity by typing <b>theirname.mns</b> in the recipient field.
           </p>
         </Notice>
       </CardContainer>
